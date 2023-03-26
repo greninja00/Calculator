@@ -1,7 +1,7 @@
 //basic defination of operations
 function add(a, b)
 {
-    return a+b;
+    return Number(a+b);
 }
 function subtract(a, b)
 {
@@ -20,5 +20,47 @@ function multiply(a, b)
 let firstnumber;
 let secondnumber;
 let operator;
+
+// operate function
+function operate(first, operator, second)
+{
+    switch(operator)
+    {
+        case '+':
+            return first + second;
+        case '-':
+            return first - second;
+        case '/':
+            return first / second;
+        case '*':
+            return first * second;
+        default :
+            return 0;
+    }
+}
+
+// wiring the button to the display except equal clear and delete
+const numberOperator = document.querySelector('.calculator').querySelectorAll('.num-operator');
+const display = document.querySelector('.calculator').querySelector('.screen');
+numberOperator.forEach(item => { item.addEventListener('click' , (e) => {  
+                                display.textContent += e.target.textContent } )})
+
+// wiring of rest of the button
+
+const clear = document.querySelector('.calculator').querySelector('.clear');
+clear.addEventListener('click' , () => { display.textContent = ''});
+
+// making the calculator do the working on pressing the equals to button
+const equal = document.querySelector('.equal');
+
+equal.addEventListener('click', () => {
+    let nums = display.textContent.split(/[\+\*\/\-]/);
+    let opr = display.textContent.split(/[0-9]+/); /* usin this 
+                                                    we'll always get an array of three value and at
+                                                    array index [1] we'll get our operator string */
+    console.log(nums);
+    console.log(opr);
+    display.textContent = operate(Number(nums[0]), opr[1], Number(nums[1]));
+ });
 
 
