@@ -27,13 +27,13 @@ function operate(first, operator, second)
     switch(operator)
     {
         case '+':
-            return first + second;
+            return add(first,second);
         case '-':
-            return first - second;
+            return subtract(first,second);
         case '/':
-            return first / second;
+            return divide(first,second);
         case '*':
-            return first * second;
+            return multiply(first,second);
         default :
             return 0;
     }
@@ -53,14 +53,36 @@ clear.addEventListener('click' , () => { display.textContent = ''});
 // making the calculator do the working on pressing the equals to button
 const equal = document.querySelector('.equal');
 
-equal.addEventListener('click', () => {
+function ans()
+{
     let nums = display.textContent.split(/[\+\*\/\-]/);
-    let opr = display.textContent.split(/[0-9]+/); /* usin this 
+    let opr = display.textContent.split(/[0-9]+/); /* using this 
                                                     we'll always get an array of three value and at
                                                     array index [1] we'll get our operator string */
     console.log(nums);
     console.log(opr);
-    display.textContent = operate(Number(nums[0]), opr[1], Number(nums[1]));
- });
+    console.log( typeof nums[1]);
+    
+    if(nums[1] === '')
+    {
+        // do nothing
+    }
+    else{
+        display.textContent = operate(Number(nums[0]), opr[1], Number(nums[1]));
+    }
+ }
+
+equal.addEventListener('click', ans );
 
 
+/* on clicking the operator button
+* first - calculate the expression on display
+* Second - calculate the expression on the display*/
+
+
+
+let opr = document.querySelectorAll('.operator');
+opr.forEach(op => { op.addEventListener('click', e =>{
+    ans();
+    
+})}); 
