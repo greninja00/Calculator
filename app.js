@@ -55,19 +55,20 @@ const equal = document.querySelector('.equal');
 
 function ans()
 {
-    let nums = display.textContent.split(/[\+\*\/\-]/);
-    let opr = display.textContent.split(/[0-9]+/); /* using this 
+    let nums = display.textContent.split(/[^0-9\.]/);
+    let opr = display.textContent.split(/[^\/\+\-\*]+/); /* using this 
                                                     we'll always get an array of three value and at
                                                     array index [1] we'll get our operator string */
     console.log(nums);
     console.log(opr);
     console.log( typeof nums[1]);
     
-    if(nums[1] === '')
+    if(nums.length === 1)
     {
         // do nothing
     }
     else{
+
         display.textContent = operate(Number(nums[0]), opr[1], Number(nums[1]));
     }
  }
@@ -84,5 +85,13 @@ equal.addEventListener('click', ans );
 let opr = document.querySelectorAll('.operator');
 opr.forEach(op => { op.addEventListener('click', e =>{
     ans();
+    display.textContent += e.target.textContent; // calculates the expression and appends the operator
     
 })}); 
+
+// Delete button to remove the single value from the display
+const del = document.querySelector('.delete');
+del.addEventListener('click', () => {
+    let size = display.textContent.length;
+    display.textContent = display.textContent.substring(0,size-1 );
+})
